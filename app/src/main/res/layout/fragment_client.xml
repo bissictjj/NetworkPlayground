@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/tv_clientTv"
+        android:layout_centerHorizontal="true"
+        style="@style/Base.TextAppearance.AppCompat.Headline"
+        android:text="Welcome to the Client Fragment"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/lv_songlist"
+        android:layout_margin="15dp"
+        android:layout_below="@id/tv_clientTv"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:id="@+id/btn_sendSong"
+        android:text="Send"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:id="@+id/btn_openChooser"
+        android:text="Choose Song"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="15dp"/>
+
+</RelativeLayout>
