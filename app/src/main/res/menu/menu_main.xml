@@ -5,7 +5,9 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
-    <item android:id="@+id/action_p2p" android:title="WiFi P2P"/>
+    <item android:id="@+id/action_p2p" android:title="WiFiP2P/w Service Discovery"/>
 
-    <item android:id="@+id/action_peerlist" android:title="P2P Peer list"/>
+    <item android:id="@+id/action_peerlist" android:title="P2P Peerlist + MusicTransfer"/>
+
+    <item android:id="@+id/action_gmaps_fun" android:title="GoogleMaps Fun"/>
 </menu>

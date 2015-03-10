@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:id="@+id/container"
         android:visibility="gone"
+        android:paddingTop="?android:attr/actionBarSize"
         />
 
     <TextView
@@ -30,7 +31,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_awesome_toolbar"
-    android:layout_height="wrap_content"
+    android:layout_height="?android:attr/actionBarSize"
     android:layout_width="match_parent"
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"

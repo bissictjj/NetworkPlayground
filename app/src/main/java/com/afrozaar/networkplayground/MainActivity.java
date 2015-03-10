@@ -17,6 +17,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +46,9 @@ public class MainActivity extends ActionBarActivity {
         mFragmentManager = getSupportFragmentManager();
         mWelcome.setVisibility(View.VISIBLE);
         container.setVisibility(View.GONE);
-
+        if(!NetworkUtils.isLocationEnabled(this)){
+            Toast.makeText(this,"Please enabled location services to use the google map section properly",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -73,15 +80,32 @@ public class MainActivity extends ActionBarActivity {
             mWelcome.setVisibility(View.GONE);
             mFragmentManager.beginTransaction().replace(R.id.container,PeerListFragment.newInstance()).commit();
         }
+
+        if( id == R.id.action_gmaps_fun){
+            container.setVisibility(View.VISIBLE);
+            mWelcome.setVisibility(View.GONE);
+            /*GoogleMapOptions options = new GoogleMapOptions();
+            options.mapType(GoogleMap.MAP_TYPE_NORMAL).compassEnabled(true).rotateGesturesEnabled(true).tiltGesturesEnabled(false).zoomGesturesEnabled(true);*/
+            mFragmentManager.beginTransaction().replace(R.id.container,GmapFragment.newInstance()).commit();
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 
-    public void changeFragment(String fragName, String host, int port){
-        if(fragName.equalsIgnoreCase("server")){
-            mFragmentManager.beginTransaction().replace(R.id.container,ServerFragment.newInstance()).commit();
-        }else if(fragName.equalsIgnoreCase("client")){
-            mFragmentManager.beginTransaction().replace(R.id.container,ClientFragment.newInstance(host,port)).commit();
+    public void changeFragment(String fragName, String host, int port) {
+        if (fragName.equalsIgnoreCase("server")) {
+            mFragmentManager.beginTransaction().replace(R.id.container, ServerFragment.newInstance()).commit();
+        } else if (fragName.equalsIgnoreCase("client")) {
+            mFragmentManager.beginTransaction().replace(R.id.container, ClientFragment.newInstance(host, port)).commit();
         }
 
+    }
+
+    public FragmentManager getMainFragmentManager(){
+        if(mFragmentManager != null){
+            return mFragmentManager;
+        }
+        return getSupportFragmentManager();
     }
 }
