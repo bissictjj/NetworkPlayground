@@ -1,30 +1,15 @@
 package com.afrozaar.networkplayground;
 
-import android.content.Context;
-import android.content.IntentFilter;
-import android.net.wifi.p2p.WifiP2pDeviceList;
-import android.net.wifi.p2p.WifiP2pInfo;
-import android.net.wifi.p2p.WifiP2pManager;
-import android.os.Looper;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.SupportMapFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -66,7 +51,9 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            container.setVisibility(View.VISIBLE);
+            mWelcome.setVisibility(View.GONE);
+            mFragmentManager.beginTransaction().replace(R.id.container, SettingsFragment.newInstance()).commit();
         }
 
         if(id == R.id.action_p2p){

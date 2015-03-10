@@ -1,8 +1,11 @@
 package com.afrozaar.networkplayground;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +15,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Drive;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -126,7 +126,8 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback,GoogleA
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-
+                gMap.addMarker(new MarkerOptions().position(new LatLng(mLocation.getLatitude(),mLocation.getLongitude())).title("FOUND YOU").icon(BitmapDescriptorFactory.fromResource(R.drawable.powered_by_google_light)));
+                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 7.0f));
                 return false;
             }
         });
@@ -150,8 +151,8 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback,GoogleA
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if(mLocation != null){
-            gMap.addMarker(new MarkerOptions().position(new LatLng(mLocation.getLatitude(),mLocation.getLongitude())).title("FOUND YOU"));
-            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(),mLocation.getLongitude()),11.0f));
+
+            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(),mLocation.getLongitude()),10.0f));
         }else{
             Toast.makeText(activity.getApplicationContext(), "Please ensure your location services are enabled!", Toast.LENGTH_LONG).show();
         }
@@ -166,4 +167,5 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback,GoogleA
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.d(TAG,"OnConnection Failed ");
     }
+
 }

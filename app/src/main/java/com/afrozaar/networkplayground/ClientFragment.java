@@ -2,7 +2,6 @@ package com.afrozaar.networkplayground;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -17,8 +16,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;

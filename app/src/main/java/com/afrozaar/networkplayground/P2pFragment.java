@@ -2,11 +2,7 @@ package com.afrozaar.networkplayground;
 
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;

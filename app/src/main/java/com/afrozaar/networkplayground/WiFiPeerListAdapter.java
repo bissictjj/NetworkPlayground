@@ -1,9 +1,7 @@
 package com.afrozaar.networkplayground;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.p2p.WifiP2pDevice;
-import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jay on 2/11/15.

@@ -1,10 +1,8 @@
 package com.afrozaar.networkplayground;
 
 import android.app.Activity;
-
 import android.content.Context;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -23,9 +21,6 @@ import android.widget.ListView;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by jay on 2/12/15.

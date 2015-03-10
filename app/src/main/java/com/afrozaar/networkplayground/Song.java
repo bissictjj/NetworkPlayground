@@ -1,7 +1,5 @@
 package com.afrozaar.networkplayground;
 
-import java.util.Random;
-
 /**
  * Created by jay on 2/26/15.
  */
