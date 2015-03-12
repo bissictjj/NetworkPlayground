@@ -40,6 +40,10 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(!CameraUtils.checkCameraHardware(this)){
+            MenuItem m = menu.getItem(R.id.action_recorder);
+            m.setEnabled(false);
+        }
         return true;
     }
 
@@ -74,6 +78,13 @@ public class MainActivity extends ActionBarActivity {
             /*GoogleMapOptions options = new GoogleMapOptions();
             options.mapType(GoogleMap.MAP_TYPE_NORMAL).compassEnabled(true).rotateGesturesEnabled(true).tiltGesturesEnabled(false).zoomGesturesEnabled(true);*/
             mFragmentManager.beginTransaction().replace(R.id.container,GmapFragment.newInstance()).commit();
+        }
+
+        if(id== R.id.action_recorder){
+            container.setVisibility(View.VISIBLE);
+            mWelcome.setVisibility(View.GONE);
+
+            mFragmentManager.beginTransaction().replace(R.id.container, RecorderFragment.newInstance()).commit();
         }
 
 

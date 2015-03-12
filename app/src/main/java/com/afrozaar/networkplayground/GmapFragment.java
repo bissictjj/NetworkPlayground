@@ -1,11 +1,8 @@
 package com.afrozaar.networkplayground;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -108,6 +105,7 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback,GoogleA
             public void onMapLongClick(LatLng latLng) {
 
                 Marker m = googleMap.addMarker(new MarkerOptions().position(latLng).title(latLng.longitude + " : " + latLng.latitude));
+                m.setDraggable(true);
                 markerList.add(m);
 
             }
@@ -116,6 +114,7 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback,GoogleA
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+
                 marker.showInfoWindow();
 
                 //marker.remove();
@@ -126,13 +125,32 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback,GoogleA
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                gMap.addMarker(new MarkerOptions().position(new LatLng(mLocation.getLatitude(),mLocation.getLongitude())).title("FOUND YOU").icon(BitmapDescriptorFactory.fromResource(R.drawable.powered_by_google_light)));
+                gMap.addMarker(new MarkerOptions().position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude())).title("FOUND YOU").icon(BitmapDescriptorFactory.fromResource(R.drawable.powered_by_google_light)));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 7.0f));
                 return false;
             }
         });
 
+        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
 
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                marker.setTitle(marker.getPosition()+"");
+                marker.showInfoWindow();
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                (markerList.get(markerList.indexOf(marker))).remove();
+                Marker m = gMap.addMarker(new MarkerOptions().position(marker.getPosition()).title("LANDED"));
+                m.showInfoWindow();
+                markerList.add(m);
+            }
+        });
         //googleMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
 
     }

@@ -10,4 +10,7 @@
     <item android:id="@+id/action_peerlist" android:title="P2P Peerlist + MusicTransfer"/>
 
     <item android:id="@+id/action_gmaps_fun" android:title="GoogleMaps Fun"/>
+
+    <item android:id="@+id/action_recorder" android:title="Naughty Video or Pic??!"/>
+
 </menu>
