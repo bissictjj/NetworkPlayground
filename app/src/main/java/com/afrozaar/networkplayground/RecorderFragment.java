@@ -113,16 +113,18 @@ public class RecorderFragment extends Fragment  {
             if(resultCode == Activity.RESULT_OK){
                 // Image captured and saved to fileUri specified in the Intent
                 Toast.makeText(activity, "Image saved to NetworkPlayground Folder", Toast.LENGTH_LONG).show();
+                mImageView = (ImageView)getView().findViewById(R.id.iv_display);
                 mImageView.setVisibility(View.VISIBLE);
                 try {
                     //InputStream in = new FileInputStream(new File(imagePathUri.getPath()));
-                    String name = imagePathUri.getLastPathSegment();
+                    /*String name = imagePathUri.getLastPathSegment();
                     File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES), "NetworkPlayground/"+name);
                     Log.d(TAG, "ImagePath : " + imagePathUri);
                     Log.d(TAG, "ImagePath LAst Segment : " + imagePathUri.getLastPathSegment());
                     Log.d(TAG, "File Exists : " + mediaStorageDir.exists());
-                    Bitmap b = BitmapFactory.decodeFile(mediaStorageDir.getCanonicalPath());
+                    Bitmap b = BitmapFactory.decodeFile(mediaStorageDir.getCanonicalPath());*/
+                    Bitmap b = (Bitmap)data.getExtras().get("data");
                     mImageView.setImageBitmap(b);
 
                 } catch (Exception e) {

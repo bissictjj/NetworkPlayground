@@ -1,15 +1,23 @@
 package com.afrozaar.networkplayground;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -17,6 +25,10 @@ public class MainActivity extends ActionBarActivity {
     private FrameLayout container;
     private TextView mWelcome;
     private FragmentManager mFragmentManager;
+
+    public static final int CONTACT_QUERY_LOADER = 0;
+    public static final String QUERY_KEY = "query";
+
 
     private final static String TAG = MainActivity.class.getName();
 
@@ -38,13 +50,49 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        Log.d("TAG", "OnCreateOptionsCalled Activity");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        if(!CameraUtils.checkCameraHardware(this)){
-            MenuItem m = menu.getItem(R.id.action_recorder);
+        if(!CameraUtils.checkCameraHardware(this)) {
+            MenuItem m = menu.findItem(R.id.action_recorder);
             m.setEnabled(false);
         }
+        //MenuItem sv = menu.findItem(R.id.action_search);
+        //sv.setVisible(false);
+        //sv.setEnabled(false);
         return true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.d("TAG", "OnNewIntent : "+intent.getAction());
+        handleIntent(intent);
+    }
+
+    /**
+     * Assuming this activity was started with a new intent, process the incoming information and
+     * react accordingly.
+     * @param intent
+     */
+    private void handleIntent(Intent intent) {
+        // Special processing of the incoming intent only occurs if the if the action specified
+        // by the intent is ACTION_SEARCH.
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            // SearchManager.QUERY is the key that a SearchManager will use to send a query string
+            // to an Activity.
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            // We need to create a bundle containing the query string to send along to the
+            // LoaderManager, which will be handling querying the database and returning results.
+            Bundle bundle = new Bundle();
+            bundle.putString(QUERY_KEY, query);
+
+            ContactablesLoaderCallbacks loaderCallbacks = new ContactablesLoaderCallbacks(this);
+
+            // Start the loader with the new query, and an object that will handle all callbacks.
+            getLoaderManager().restartLoader(CONTACT_QUERY_LOADER, bundle, loaderCallbacks);
+        }
     }
 
     @Override
@@ -87,6 +135,12 @@ public class MainActivity extends ActionBarActivity {
             mFragmentManager.beginTransaction().replace(R.id.container, RecorderFragment.newInstance()).commit();
         }
 
+        if(id==R.id.action_searchFrag){
+            container.setVisibility(View.VISIBLE);
+            mWelcome.setVisibility(View.GONE);
+            mFragmentManager.beginTransaction().replace(R.id.container, SearchFragment.newInstance()).commit();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -100,10 +154,4 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public FragmentManager getMainFragmentManager(){
-        if(mFragmentManager != null){
-            return mFragmentManager;
-        }
-        return getSupportFragmentManager();
-    }
 }

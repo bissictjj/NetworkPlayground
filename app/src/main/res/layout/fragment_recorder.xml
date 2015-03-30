@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:visibility="gone"
-        android:src="@drawable/ic_plusone_tall_off_client"/>
+        />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/btnCapture"
